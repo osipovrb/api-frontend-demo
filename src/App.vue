@@ -1,7 +1,14 @@
 <script setup>
+    import HeaderComponent from './components/HeaderComponent.vue'
     import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-    <RouterView />
+    <HeaderComponent />
+
+    <RouterView />   
 </template>
+
+<style lang="scss">
+    @import 'assets/theme.scss';
+</style>

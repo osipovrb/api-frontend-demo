@@ -1,3 +1,7 @@
 <template>
-    <h1>Hello world!</h1>
+    <div class="container card">
+        <div class="card-body">
+            Добро пожаловать!
+        </div>
+    </div>
 </template>
