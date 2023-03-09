@@ -7,10 +7,7 @@
 
             <ul class="nav nav-pills">
                 <li class="nav-item"><router-link :to="{ name: 'home' }" class="nav-link" exact exact-active-class="active">Домой</router-link></li>
-                <li class="nav-item"><a href="#" class="nav-link">Page 1</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Page 2</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Page 3</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Page 4</a></li>
+                <li class="nav-item"><router-link :to="{ name: 'register' }" class="nav-link" exact exact-active-class="active">Регистрация</router-link></li>
             </ul>
         </header>
     </div>
