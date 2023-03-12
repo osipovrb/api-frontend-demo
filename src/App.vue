@@ -6,9 +6,12 @@
 <template>
     <HeaderComponent />
 
-    <RouterView />   
+    <RouterView />
+
+    <notifications />
 </template>
 
 <style lang="scss">
     @import 'assets/theme.scss';
+    @import 'vue-loading-overlay/dist/css/index.css';
 </style>
