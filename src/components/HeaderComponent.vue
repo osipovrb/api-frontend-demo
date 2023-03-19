@@ -12,12 +12,12 @@
                     </router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link :to="{ name: 'register' }" class="nav-link" exact exact-active-class="active">
+                    <router-link :to="{ name: 'users_create' }" class="nav-link" exact exact-active-class="active">
                         Зарегистрироваться
                     </router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link :to="{ name: 'login' }" class="nav-link" exact exact-active-class="active">
+                <router-link :to="{ name: 'tokens_create' }" class="nav-link" exact exact-active-class="active">
                         Войти
                     </router-link>
                 </li>

@@ -1,13 +1,15 @@
 <script>
     import { notify } from '@kyvg/vue3-notification';
     import { useTokensStore } from '@/stores/tokensStore'
+    import { useCurrentUserStore } from '@/stores/currentUserStore'
     import Loading from 'vue-loading-overlay';
     import 'vue-loading-overlay/dist/css/index.css';
 
     export default {
         data() {
             return {
-                store: useTokensStore(),
+                tokensStore: useTokensStore(),
+                currentUserStore: useCurrentUserStore(),
                 login: '',
                 password: '',
             }
@@ -17,19 +19,20 @@
         },
         computed: {
             isLoading() {
-                return this.store.isLoading
+                return this.tokensStore.isLoading
             },
             error() {
-                return this.store.error
+                return this.tokensStore.error
             }
         },        
         methods: {
             clearError() {
-                this.store.clearError()
+                this.tokensStore.clearError()
             },
-            async createToken() {
-                const response = await this.store.create(this.login, this.password)
+            async logIn() {
+                const response = await this.tokensStore.create(this.login, this.password)
                 if (response?.status === 201) {
+                    this.currentUserStore.logIn(response.data.id, response.data.access_token)
                     notify({ type: 'success', text: 'Пользователь аутентифицирован' })
                     this.$refs.createTokenForm.reset()
                     this.$router.push({name: 'home'})
@@ -48,7 +51,7 @@
             <loading v-model:active="isLoading" />
             <h5 class="card-title mb-4">Войти</h5>
             <div v-if="error" class="alert alert-danger" role="alert" v-html="error" />
-            <form @submit.prevent="createToken" ref="createTokenForm">
+            <form @submit.prevent="logIn" ref="createTokenForm">
                 <div class="mb-2">
                     <label for="login" class="form-label">Логин</label>
                     <input 

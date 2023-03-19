@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { notify } from '@kyvg/vue3-notification';
+import { useCurrentUserStore } from '@/stores/currentUserStore'
 
 const httpClient = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -13,9 +14,10 @@ const httpClient = axios.create({
 })
 
 const authInterceptor = (config) => {
-    /*if (store.getters['login/getIsLoggedIn']) {
-        config.headers['Authorization'] = 'Bearer ' + store.getters['login/getToken']
-    }*/
+    const currentUserStore = useCurrentUserStore()
+    if (currentUserStore.isLoggedIn) {
+        config.headers['Authorization'] = 'Bearer ' + currentUserStore.token.bearer
+    }
     return config
 }
 
@@ -24,6 +26,8 @@ const responseInterceptor = response => {
 }
 
 const errorInterceptor = error => {
+    const currentUserStore = useCurrentUserStore()
+
     if (!error.response) {
         return Promise.reject(error)
     }
@@ -34,8 +38,8 @@ const errorInterceptor = error => {
                 text: error.response.data.message,
                 type: 'error'
             })
-            //store.commit('login/clearToken')
-            break
+            currentUserStore.logOut()
+            return Promise.reject(error)
         case 422:
             notify({
                 text: error.response.data.message,
