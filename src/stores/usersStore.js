@@ -5,7 +5,6 @@ export const useUsersStore = defineStore('users', {
     state: () => ({
         errors: {},
         isLoading: false,
-        isSuccess: false
     }),
     actions: {
         clearError(...fields) {
